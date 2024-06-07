@@ -1,8 +1,11 @@
 
 ;--- ----------------Variables to set -----------------------------
 ; Set which monitor you would like to display the search page on
+SetCapsLockState, AlwaysOff
 
-global targetMonitor:= 3
+global DoVendorID := 0
+
+global targetMonitor:= 2
 
 
 ;Set which tab to start in -
@@ -37,7 +40,7 @@ return
 
 
 ;Hotkey to pick url from search page
-Xbutton2:: newdata(1)
+~Xbutton2:: newdata(1)
 return
 
 
@@ -96,7 +99,7 @@ Send, {Right}
 sleep 0060
 Send, {Right}
 sleep 0040
-clipboard :=""
+clipboard =
 
 Send, ^c
 ClipWait
@@ -108,12 +111,13 @@ Send, {Right}
 sleep 0050
 Send, {Right}
 sleep 0040
-clipboard :=""
+clipboard =
 
 Send, ^c
 ClipWait
+sleep 50
 Old_url := Clipboard
-sleep 0010
+sleep 0040
 
 tld := GetTLD(old_url)
 
@@ -209,6 +213,7 @@ newdata(mode)
 {
 if (mode = 1)
 {
+
 	clipboard=
 	sleep 0030
 	Send {Rbutton}
@@ -216,7 +221,6 @@ if (mode = 1)
 	Send {up 2}{Enter}
 	sleep 0100
 	data := clipboard
-
 }
 
 if (mode = 2)
@@ -250,6 +254,7 @@ sleep 0100
 Send, ^+w
 sleep 0200
 Inputdata(data)
+return
 }
 
 }
@@ -337,6 +342,8 @@ return
 
 TextEnter(vendorid)
 {
+	if (DoVendorID = 1)
+	{
 	WinGet, hWnd, ID, ahk_class Chrome_WidgetWin_1
     clipboard := vendorid
     ; Retrieve the mouse position
@@ -377,6 +384,7 @@ Loop
 		
 		break
 		
+	}
 	}
 }
 }
