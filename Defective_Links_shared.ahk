@@ -32,37 +32,37 @@ GetData() {
         ClipWait, 2
 
         vendor_id := Clipboard
-        Sleep, 100
+        Sleep, 50
         Send, {Right}
-        Sleep, 100
+        Sleep, 50
         Send, {Right}
-        Sleep, 100
+        Sleep, 50
         Clipboard := ""
 
         Send, ^c
         ClipWait, 2
 
         Name := Clipboard
-        Sleep, 100
+        Sleep, 50
         Send, {Right}
-        Sleep, 100
+        Sleep, 50
         Send, {Right}
-        Sleep, 100
+        Sleep, 50
         Clipboard := ""
 
         Send, ^c
         ClipWait, 2
-        Sleep, 100
+        Sleep, 50
         Old_url := Clipboard
-        Sleep, 100
+        Sleep, 50
 
         tld := GetTLD(Old_url)
 
         Clipboard := ""
 
-        Sleep, 100
+        Sleep, 50
         Send, {Left}
-        Sleep, 100
+        Sleep, 50
 
         Search(OldClip, vendor_id, Name, Old_url, tld)
     } else {
@@ -169,7 +169,7 @@ newdata(mode) {
 }
 
 Inputdata(data) {
-    Sleep, 200
+    Sleep, 100
     WinGetActiveTitle, current
     if InStr(current, "xlsx") {
         Send, %data%
@@ -192,18 +192,19 @@ Inputdata(data) {
 
 RunChrome(monitorNumber) {
     Run, chrome.exe
-    Sleep, 200
+    Sleep, 250
     WinGet, hWnd, ID, ahk_class Chrome_WidgetWin_1
     SysGet, MonitorCount, MonitorCount
 
-    WinActivate
+    WinActivate, ahk_id %hWnd%
     monitorgo := (monitorNumber - 2) * 1922
     WinWait, ahk_class Chrome_WidgetWin_1
+	sleep 50
     WinRestore, ahk_id %hWnd%
     Sleep, 100
     WinMove, %monitorgo%, 0
     WinMaximize, ahk_id %hWnd%
-    Sleep, 100
+    Sleep, 50
     WinActivate, ahk_id %hWnd%
 }
 
