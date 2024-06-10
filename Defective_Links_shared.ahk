@@ -2,7 +2,7 @@
 SetCapsLockState, AlwaysOff
 
 global DoVendorID := 1
-global targetMonitor := 3
+global targetMonitor := 2
 global TabNumber := 2
 global xBoxloc := 1500
 global yBoxloc := 350
@@ -23,7 +23,7 @@ GetData() {
     Old_url := ""
     tld := ""
     WinGetActiveTitle, current
-    if InStr(current, "xlsx") {
+    if InStr(current, "Excel") {
         global OldClip := ClipboardAll
         Clipboard := ""
         Send, {Home}
@@ -77,56 +77,62 @@ Search(OldClip, vendor_id, Name, Old_url, tld) {
 
     RunChrome(targetMonitor)
     Sleep, 200
-
-    Sleep, 100
-    Send, ^l
-    Sleep, 150
-
-    Send, ^v
-    Sleep, 100
-    Send, {Enter}
-    WinWait, Valify - Google Chrome
-    Sleep, 150
-    TextEnter(vendor_id)
-    Sleep, 200
-
-    Send, ^t
-    Clipboard := tld
-    Sleep, 100
-    Send, ^v
-    Sleep, 100
-    Send, {Enter}
-    Sleep, 100
-
-    Send, ^t
-    Sleep, 100
-    Send, ^l
-    Sleep, 100
-    Clipboard := Old_url
-    ClipWait, 2
-    Send, ^v
-    Sleep, 100
-    Send, {space}
-    Sleep, 100
-    Send, {Enter}
-    Sleep, 100
-
-    Send, ^t
-    Sleep, 100
-    Send, ^l
-    Sleep, 100
-    Clipboard := Name
-    ClipWait, 2
-    Send, ^v
-    Sleep, 100
-    Send, {space}
-    Sleep, 100
-    Send, {Enter}
-    Sleep, 100
-    Send, ^{%TabNumber%}
-    Sleep, 100
-	Send, {ctrl up}
-
+	WinGetActiveTitle, current
+    if InStr(current, "Chrome") {
+		Sleep, 100
+		Send, ^l
+		Sleep, 150
+		Send, ^v
+		Sleep, 100
+		Send, {Enter}
+		WinWait, Valify - Google Chrome
+		Sleep, 150
+		TextEnter(vendor_id)
+		Sleep, 200
+	}
+	WinGetActiveTitle, current
+    if InStr(current, "Chrome") {
+		Send, ^t
+		Clipboard := tld
+		Sleep, 100
+		Send, ^v
+		Sleep, 100
+		Send, {Enter}
+		Sleep, 100
+	}
+	WinGetActiveTitle, current
+    if InStr(current, "Chrome") {
+		Send, ^t
+		Sleep, 100
+		Send, ^l
+		Sleep, 100
+		Clipboard := Old_url
+		ClipWait, 2
+		Send, ^v
+		Sleep, 100
+		Send, {space}
+		Sleep, 100
+		Send, {Enter}
+		Sleep, 100
+	}
+	WinGetActiveTitle, current
+    if InStr(current, "Chrome") {
+		Send, ^t
+		Sleep, 100
+		Send, ^l
+		Sleep, 100
+		Clipboard := Name
+		ClipWait, 2
+		Send, ^v
+		Sleep, 100
+		Send, {space}
+		Sleep, 100
+		Send, {Enter}
+		Sleep, 100
+		Send, ^{%TabNumber%}
+		Sleep, 100
+		Send, {ctrl up}
+	}
     Clipboard := vendor_id
 }
 
@@ -171,7 +177,7 @@ newdata(mode) {
 Inputdata(data) {
     Sleep, 100
     WinGetActiveTitle, current
-    if InStr(current, "xlsx") {
+    if InStr(current, "excel") {
         Send, %data%
         Sleep, 300
         Send, {Down}
