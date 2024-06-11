@@ -1,21 +1,35 @@
-;--- Variables to set -----------------------------
+;------Default Variables------------
 SetCapsLockState, AlwaysOff
 
-global DoVendorID := 1
+global DoVendorID := Yes
 global targetMonitor := 2
 global TabNumber := 2
 global xBoxloc := 1500
 global yBoxloc := 350
 
+
+
+
 ;--------------------- Hotkeys to change ------------------------
 +`:: Tutorial()
 `:: Tutorial()
+^+s::Settings()
 CapsLock:: GetData()
-~Xbutton2:: newdata(1)
+Xbutton2:: newdata(1)
 Mbutton:: newdata(2)
 Xbutton1:: newdata(3)
 
 ;----------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
 
 GetData() {
     vendor_id := ""
@@ -215,7 +229,7 @@ RunChrome(monitorNumber) {
 }
 
 TextEnter(vendorid) {
-    if (DoVendorID = 1) {
+    if (DoVendorID = Yes) {
         WinGet, hWnd, ID, ahk_class Chrome_WidgetWin_1
         Clipboard := vendorid
         rangeXMin := xBoxloc - 50
@@ -251,6 +265,9 @@ GetTLD(linky) {
     return domain
 }
 
+
+
+
 Tutorial() {
     MsgBox, 
     (
@@ -258,13 +275,17 @@ Tutorial() {
     To use -
     - Open Excel sheet
     - Put cursor in New Url field
-    - Press Search Hotkey
+    - Press Search Hotkey (Default Caps Lock)
 
     ------- Important Hotkeys --------
 
     Esc to end script
 
     Tutorial Hotkey - tilde
+	
+	Settings Hotkey - Ctrl + shift + s
+
+	Ctrl+Alt+M - change desired monitor
 
     ----- Default Hotkeys: -----
 
@@ -278,10 +299,73 @@ Tutorial() {
 
     No Url found: Side mouse button 1 (back)
     (puts ? in the url field)
+
+	------ Navigation Hotkeys -------
+	(Only if Chrome is active window)
+	1 - Navigate to tab 1
+	2 - Navigate to tab 2
+	3 - Navigate to tab 3
+	4 - Navigate to tab 4
     )
 }
 
 Esc::
-    Clipboard := OldClip
     ExitApp
 
+
+
+#IfWinActive ahk_exe chrome.exe
+WinGetActiveTitle, current
+If Instr(current, Google)
+{
+1:: Send, ^1
+2::Send, ^2
+3:: Send, ^3
+4:: Send, ^4
+}
+return
+
+
+
+global TargetMonitorEdit := ""
+global TabNumberEdit := ""
+global DoVendorIDEdit := ""
+
+Settings() {
+    global targetMonitor
+    global TabNumber
+    global DoVendorID
+    global TargetMonitorEdit
+    global TabNumberEdit
+    global DoVendorIDEdit
+
+    ; Create the GUI
+    Gui, Add, Text,, Select which monitor you would like the Chrome window to open on:
+    Gui, Add, Edit, vTargetMonitorEdit, %TargetMonitor%
+    Gui, Add, Text,, Select which tab you would like to start on (1-4):
+    Gui, Add, Edit, vTabNumberEdit, %TabNumber%
+    Gui, Add, Text,, Do you want to automatically input Vendor ID?
+    Gui, Add, DropDownList, vDoVendorIDedit, Yes||No
+    Gui, Add, Button, gSaveSettings, Save
+    Gui, Show,, Settings
+
+    Return
+
+
+    SaveSettings:
+
+        Gui, Submit, NoHide
+
+        targetMonitor := TargetMonitorEdit
+        TabNumber := TabNumberEdit
+        DoVendorID := DoVendorIDEdit
+
+        Gui, Destroy
+        MsgBox, Variables saved:`nMonitor: %targetMonitor%`nTab Number: %TabNumber%`nDo Vendor ID: %DoVendorID%
+    Return
+
+    ; Exit the script
+    GuiClose:
+        ExitApp
+    Return
+}
