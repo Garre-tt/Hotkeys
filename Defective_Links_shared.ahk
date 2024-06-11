@@ -11,9 +11,9 @@ global yBoxloc := 350
 
 
 ;--------------------- Hotkeys to change ------------------------
-+`:: Tutorial()
 `:: Tutorial()
-^+s::Settings()
++`:: Settings()
+^!s::Settings()
 CapsLock:: GetData()
 Xbutton2:: newdata(1)
 Mbutton:: newdata(2)
@@ -279,13 +279,13 @@ Tutorial() {
 
     ------- Important Hotkeys --------
 
-    Esc to end script
-
-    Tutorial Hotkey - tilde
+    	Esc to end script
 	
-	Settings Hotkey - Ctrl + shift + s
-
-	Ctrl+Alt+M - change desired monitor
+   	Tutorial Hotkey - tilde
+	
+ 	Settings Hotkey - Ctrl + alt + s
+			 OR
+			  Shift + tilde
 
     ----- Default Hotkeys: -----
 
@@ -300,12 +300,12 @@ Tutorial() {
     No Url found: Side mouse button 1 (back)
     (puts ? in the url field)
 
-	------ Navigation Hotkeys -------
-	(Only if Chrome is active window)
-	1 - Navigate to tab 1
-	2 - Navigate to tab 2
-	3 - Navigate to tab 3
-	4 - Navigate to tab 4
+     ------ Navigation Hotkeys -------
+     (Only if Chrome is active window)
+     1 - Navigate to tab 1
+     2 - Navigate to tab 2
+     3 - Navigate to tab 3
+     4 - Navigate to tab 4
     )
 }
 
