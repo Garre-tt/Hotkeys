@@ -248,6 +248,7 @@ TextEnter(vendorid) {
         CoordMode, Mouse, Window
         CoordMode, Caret, Window
         WinWait, ahk_exe chrome.exe,, 5
+	sleep 200
 
         Loop {
             MouseGetPos, xpos, ypos
