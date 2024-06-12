@@ -11,13 +11,13 @@ global yBoxloc := 350
 
 
 ;--------------------- Hotkeys to change ------------------------
-`:: Tutorial()
-+`:: Settings()
-^!s::Settings()
-CapsLock:: GetData()
-Xbutton2:: newdata(1)
-Mbutton:: newdata(2)
-Xbutton1:: newdata(3)
+`:: Tutorial()		 ; Opens tutorial Menu
++`:: Settings()       ; Opens Settings Menu (Shift + Tilde)
+^!s::Settings()        ; Opens Settings Menu (Ctrl Alt s)
+CapsLock:: GetData()    ; From Excel sheet, beginning new search
+Xbutton2:: newdata(1)    ; From Chrome, Hovering a URL and you want to select
+Mbutton:: newdata(2)      ; From Chrome, gets current url of site you are visiting
+Xbutton1:: newdata(3)	   ; From Chrome, Puts a ? in New Url field
 
 ;----------------------------------------------------------------------------
 
@@ -350,6 +350,7 @@ Settings() {
     global DoVendorIDEdit
 
     ; Create the GUI
+    Gui,font,s10
     Gui, Add, Text,, Select which monitor you would like the Chrome window to open on:
     Gui, Add, Edit, vTargetMonitorEdit, %TargetMonitor%
     Gui, Add, Text,, Select which tab you would like to start on (1-4):
@@ -371,11 +372,11 @@ Settings() {
         DoVendorID := DoVendorIDEdit
 
         Gui, Destroy
-        MsgBox, Variables saved:`nMonitor: %targetMonitor%`nTab Number: %TabNumber%`nDo Vendor ID: %DoVendorID%
     Return
 
     ; Exit the script
     GuiClose:
+		Gui, Destroy
         Return
     Return
 }
