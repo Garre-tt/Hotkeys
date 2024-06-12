@@ -366,6 +366,6 @@ Settings() {
 
     ; Exit the script
     GuiClose:
-        ExitApp
+        Return
     Return
 }
