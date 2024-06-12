@@ -211,11 +211,20 @@ Inputdata(data) {
 }
 
 RunChrome(monitorNumber) {
-    Run, chrome.exe
+	Run, chrome.exe
     Sleep, 250
-    WinGet, hWnd, ID, ahk_class Chrome_WidgetWin_1
-    SysGet, MonitorCount, MonitorCount
-
+	Loop, 5
+	{
+		WinGet, hWnd, ID, ahk_class Chrome_WidgetWin_1
+		SysGet, MonitorCount, MonitorCount
+		WinGetActiveTitle, current
+		If Instr(current, "Google - Google Chrome")
+		{
+			break
+		}else{
+			sleep 100
+		}
+	}
     WinActivate, ahk_id %hWnd%
     monitorgo := (monitorNumber - 2) * 1922
     WinWait, ahk_class Chrome_WidgetWin_1
