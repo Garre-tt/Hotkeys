@@ -243,8 +243,8 @@ TextEnter(vendorid) {
         Clipboard := vendorid
         rangeXMin := xBoxloc - 50
         rangeXMax := xBoxloc + 50
-        rangeYMin := 347
-        rangeYMax := 365
+        rangeYMin := yBoxloc - 10
+        rangeYMax := yBoxloc + 10
         CoordMode, Mouse, Window
         CoordMode, Caret, Window
         WinWait, ahk_exe chrome.exe,, 5
